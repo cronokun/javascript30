@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Pad</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <ul class="pad">
+    <li class="keys">
+      <div data-key="49" class="key">
+        <kbd>1</kbd>
+        <span class="label">clap</span>
+      </div>
+      <div data-key="50" class="key">
+        <kbd>2</kbd>
+        <span class="label">cowbell</span>
+      </div>
+      <div data-key="51" class="key">
+        <kbd>3</kbd>
+        <span class="label">tambourine</span>
+      </div>
+      <div data-key="52" class="key">
+        <kbd>4</kbd>
+        <span class="label">twin tabla</span>
+      </div>
+    </li>
+    <li class="keys">
+      <div data-key="81" class="key">
+        <kbd>Q</kbd>
+        <span class="label">dry kick</span>
+      </div>
+      <div data-key="87" class="key">
+        <kbd>W</kbd>
+        <span class="label">feel it kick</span>
+      </div>
+      <div data-key="69" class="key">
+        <kbd>E</kbd>
+        <span class="label">Pwr Room Hi</span>
+      </div>
+      <div data-key="82" class="key">
+        <kbd>R</kbd>
+        <span class="label">Pwr Room Low</span>
+      </div>
+    </li>
+    <li class="keys">
+      <div data-key="65" class="key">
+        <kbd>A</kbd>
+        <span class="label">ac rim</span>
+      </div>
+      <div data-key="83" class="key">
+        <kbd>S</kbd>
+        <span class="label">deep snare</span>
+      </div>
+      <div data-key="68" class="key">
+        <kbd>D</kbd>
+        <span class="label">jazz snare</span>
+      </div>
+      <div data-key="70" class="key">
+        <kbd>F</kbd>
+        <span class="label">tronic kick</span>
+      </div>
+    </li>
+    <li class="keys">
+      <div data-key="90" class="key">
+        <kbd>Z</kbd>
+        <span class="label">jazz hat</span>
+      </div>
+      <div data-key="88" class="key">
+        <kbd>X</kbd>
+        <span class="label">multi hat</span>
+      </div>
+      <div data-key="67" class="key">
+        <kbd>C</kbd>
+        <span class="label">rezo cymbal</span>
+      </div>
+      <div data-key="86" class="key">
+        <kbd>V</kbd>
+        <span class="label">plant tom</span>
+      </div>
+    </li>
+  </ul>
+
+  <audio data-key="49" src="sounds/Clap.wav"></audio>
+  <audio data-key="50" src="sounds/Cowbell.wav"></audio>
+  <audio data-key="51" src="sounds/Tambourine.wav"></audio>
+  <audio data-key="52" src="sounds/TwinTabla.wav"></audio>
+  <audio data-key="81" src="sounds/DryKick.wav"></audio>
+  <audio data-key="87" src="sounds/FeelItKick.wav"></audio>
+  <audio data-key="69" src="sounds/PwrRoomHi.wav"></audio>
+  <audio data-key="82" src="sounds/PwrRoomLow.wav"></audio>
+  <audio data-key="65" src="sounds/AcRim.wav"></audio>
+  <audio data-key="83" src="sounds/DeepSnare.wav"></audio>
+  <audio data-key="68" src="sounds/JazzSnare.wav"></audio>
+  <audio data-key="70" src="sounds/TronicKick.wav"></audio>
+  <audio data-key="90" src="sounds/JazzHat.wav"></audio>
+  <audio data-key="88" src="sounds/MultiHat.wav"></audio>
+  <audio data-key="67" src="sounds/RezoCymbal.wav"></audio>
+  <audio data-key="86" src="sounds/PlantTom.wav"></audio>
+
+<script>
+  function playSound(e) {
+    const sound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if (!sound) return;
+    sound.currentTime = 0;
+    sound.play();
+    key.classList.add('playing');
+  }
+  function removeTransition(e) {
+    if (e.propertyName !== 'background-color') return;
+    this.classList.remove('playing');
+  };
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
+</script>
+
+</body>
+</html>
