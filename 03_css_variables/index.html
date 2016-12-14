@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Black Square Builder</title>
+  </head>
+  <body>
+
+    <div class="controls">
+      <label>Border</label>
+      <input name="border-size" type="range" value="20" min="0" max="100" step="5" data-suffix="px">
+      <input name="border-color" type="color" value="#fcfcfc">
+      &nbsp;•&nbsp;
+      <label>Square</label>
+      <input name="size" type="range" value="400" min="100" max="1000" step="10" data-suffix="px">
+      <input name="color" type="color" value="#000000">
+    </div>
+
+    <div class="container">
+      <div class="border">
+        <div class="square"></div>
+      </div>
+    </div>
+
+    <style>
+      :root {
+        --color: black;
+        --border-color: #fcfcfc;
+        --border-size: 20px;
+        --size: 400px;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      .controls {
+        text-align: center;
+        padding: 0.5rem 1rem;
+        font: 14px sans-serif;
+        color: #fcfcfc;
+        background-color: #616161;
+        box-shadow: 0px 1px 5px 0px black;
+      }
+
+      .controls label::after {
+        content: "\00A0";
+      }
+
+      .container {
+        display: flex;
+        flex: 1;
+      }
+
+      .border {
+        background-color: var(--border-color);
+        margin: 20px auto;
+      }
+
+      .square {
+        background-color: var(--color);
+        margin: var(--border-size);
+        height: var(--size);
+        width: var(--size);
+      }
+    </style>
+
+    <script>
+      const controls = document.querySelectorAll('.controls input');
+      const root = document.documentElement;
+
+      function handleChange(e) {
+        const input = e.target;
+        const propertyName = `--${input.name}`;
+        const propertyValue = `${input.value}${input.dataset.suffix || ''}`;
+        root.style.setProperty(propertyName, propertyValue);
+      }
+
+      controls.forEach(input => input.addEventListener('change', handleChange));
+    </script>
+  </body>
+</html>
