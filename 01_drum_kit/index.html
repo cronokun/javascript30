@@ -11,97 +11,96 @@
       <div data-key="49" class="key">
         <kbd>1</kbd>
         <span class="label">clap</span>
+        <audio src="sounds/Clap.wav"></audio>
       </div>
       <div data-key="50" class="key">
         <kbd>2</kbd>
         <span class="label">cowbell</span>
+        <audio src="sounds/Cowbell.wav"></audio>
       </div>
       <div data-key="51" class="key">
         <kbd>3</kbd>
         <span class="label">tambourine</span>
+        <audio src="sounds/Tambourine.wav"></audio>
       </div>
       <div data-key="52" class="key">
         <kbd>4</kbd>
         <span class="label">twin tabla</span>
+        <audio src="sounds/TwinTabla.wav"></audio>
       </div>
     </li>
     <li class="keys">
       <div data-key="81" class="key">
         <kbd>Q</kbd>
         <span class="label">dry kick</span>
+        <audio data-key="81" src="sounds/DryKick.wav"></audio>
       </div>
       <div data-key="87" class="key">
         <kbd>W</kbd>
         <span class="label">feel it kick</span>
+        <audio src="sounds/FeelItKick.wav"></audio>
       </div>
       <div data-key="69" class="key">
         <kbd>E</kbd>
         <span class="label">Pwr Room Hi</span>
+        <audio src="sounds/PwrRoomHi.wav"></audio>
       </div>
       <div data-key="82" class="key">
         <kbd>R</kbd>
         <span class="label">Pwr Room Low</span>
+        <audio src="sounds/PwrRoomLow.wav"></audio>
       </div>
     </li>
     <li class="keys">
       <div data-key="65" class="key">
         <kbd>A</kbd>
         <span class="label">ac rim</span>
+        <audio src="sounds/AcRim.wav"></audio>
       </div>
       <div data-key="83" class="key">
         <kbd>S</kbd>
         <span class="label">deep snare</span>
+        <audio src="sounds/DeepSnare.wav"></audio>
       </div>
       <div data-key="68" class="key">
         <kbd>D</kbd>
         <span class="label">jazz snare</span>
+        <audio src="sounds/JazzSnare.wav"></audio>
       </div>
       <div data-key="70" class="key">
         <kbd>F</kbd>
         <span class="label">tronic kick</span>
+        <audio src="sounds/TronicKick.wav"></audio>
       </div>
     </li>
     <li class="keys">
       <div data-key="90" class="key">
         <kbd>Z</kbd>
         <span class="label">jazz hat</span>
+        <audio src="sounds/JazzHat.wav"></audio>
       </div>
       <div data-key="88" class="key">
         <kbd>X</kbd>
         <span class="label">multi hat</span>
+        <audio src="sounds/MultiHat.wav"></audio>
       </div>
       <div data-key="67" class="key">
         <kbd>C</kbd>
         <span class="label">rezo cymbal</span>
+        <audio src="sounds/RezoCymbal.wav"></audio>
       </div>
       <div data-key="86" class="key">
         <kbd>V</kbd>
         <span class="label">plant tom</span>
+        <audio src="sounds/PlantTom.wav"></audio>
       </div>
     </li>
   </ul>
 
-  <audio data-key="49" src="sounds/Clap.wav"></audio>
-  <audio data-key="50" src="sounds/Cowbell.wav"></audio>
-  <audio data-key="51" src="sounds/Tambourine.wav"></audio>
-  <audio data-key="52" src="sounds/TwinTabla.wav"></audio>
-  <audio data-key="81" src="sounds/DryKick.wav"></audio>
-  <audio data-key="87" src="sounds/FeelItKick.wav"></audio>
-  <audio data-key="69" src="sounds/PwrRoomHi.wav"></audio>
-  <audio data-key="82" src="sounds/PwrRoomLow.wav"></audio>
-  <audio data-key="65" src="sounds/AcRim.wav"></audio>
-  <audio data-key="83" src="sounds/DeepSnare.wav"></audio>
-  <audio data-key="68" src="sounds/JazzSnare.wav"></audio>
-  <audio data-key="70" src="sounds/TronicKick.wav"></audio>
-  <audio data-key="90" src="sounds/JazzHat.wav"></audio>
-  <audio data-key="88" src="sounds/MultiHat.wav"></audio>
-  <audio data-key="67" src="sounds/RezoCymbal.wav"></audio>
-  <audio data-key="86" src="sounds/PlantTom.wav"></audio>
-
 <script>
   function playSound(e) {
-    const sound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
     const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    const sound = key.querySelector('audio');
     if (!sound) return;
     sound.currentTime = 0;
     sound.play();
