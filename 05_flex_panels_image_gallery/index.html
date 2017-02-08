@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Flex Panels Image Gallery</title>
+</head>
+<body>
+  <style>
+    body {
+      margin: 0;
+        background-color: #222;
+    }
+    .albums {
+      display: flex;
+      min-height: 100vh;
+    }
+    .album {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid #222;
+      transition: flex-basis 200ms cubic-bezier(0.55, 0.06, 0.68, 0.19);
+    }
+    .album img {
+      height: 100vh;
+      transition: opacity 100ms ease;
+    }
+    .album:hover {
+      background-color: white;
+    }
+    .album img:hover {
+      opacity: 0.75;
+    }
+    .album.open {
+      flex: 0 0 100vh;
+    }
+    .album.open img:hover {
+      opacity: 1;
+    }
+  </style>
+
+  <div class="albums">
+    <div class="album">
+      <img src="images/LNT-08 Nightmares On Wax (2003).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-09 Sly & Robbie (2003).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-10 Jamiroquai (2003).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-11 Turin Brakes (2004).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-12 Four Tet (2004).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-13 The Flaming Lips (2005).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-14 Belle & Sebastian (2006).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-15 Air (2006).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-16 Nouvelle Vague (2007).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-18 Lindstrøm (2007).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-19 Fatboy Slim (2007).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-20 Groove Armada (2008).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-21 Arctic Monkeys (2008).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-22 The Cinematic Orchestra (2010).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-23 Snow Patrol (2009).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-24 Midlake (2011).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-25 Trentemøller (2011).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-26 MGMT (2011).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-27 Belle & Sebastian, vol. 2 (2012).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-29 Metronomy (2012).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-30 Friendly Fires (2012).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-32 Röyksopp (2013).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-34 Bonobo (2013).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-35 Django Django (2014).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-37 Franz Ferdinand (2014).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-39 Jon Hopkins (2015).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-42 Nils Frahm (2015).jpg">
+    </div>
+    <div class="album">
+      <img src="images/LNT-44 Ólafur Arnalds (2016).jpg">
+    </div>
+  </div>
+
+  <script>
+    function toggleOpen(e) {
+      const openAlbum = document.querySelector('.album.open');
+      if (openAlbum && openAlbum !== this) {
+        openAlbum.classList.remove('open');
+      }
+      this.classList.toggle('open');
+    }
+
+    function changeSlide(e) {
+      // 27 - esc,  37 - left, 39 -- right
+      if (![27, 37, 39].includes(e.keyCode)) return;
+      
+      var el, nextEl;
+      el = document.querySelector('.album.open');
+
+      if (e.keyCode == 27) {
+        el && el.classList.remove('open');
+        return;
+      }
+
+      if (el && e.keyCode == 37) {
+        nextEl = el.previousElementSibling;
+      } else if (el && e.keyCode == 39) {
+        nextEl = el.nextElementSibling;
+      } else {
+        nextEl = document.querySelector(`.album:${e.keyCode == 39 ? 'first' : 'last'}-child`);
+      }
+
+      [el, nextEl].forEach(e => e && e.classList.toggle('open'));
+    }
+
+    const albums = document.querySelectorAll('.album');
+    albums.forEach(album => album.addEventListener("click", toggleOpen));
+    window.addEventListener('keydown', changeSlide);
+  </script>
+</body>
+</html>
