@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+      .albums-grid {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 35px;
+      }
+      .albums-grid .album {
+        margin: 15px 10px;
+        text-align: center;
+      }
+      .albums-grid .album img {
+        height: 200px;
+      }
+      .albums-grid .album h2, h3 {
+        font-size: 1em;
+        margin: 0;
+        padding: 0;
+      }
+      .albums-grid .album h2 {
+        line-height: 2em;
+        color: #515151;
+      }
+      .albums-grid .album h3 {
+        color: #9e9e9e;
+        font-weight: normal;
+        line-height: 1.25em;
+      }
+      .albums-grid .album.template {
+        display: none;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        height: 32px;
+        width: 100%;
+      }
+      .navbar .search {
+        width: 20em;
+        height: 32px;
+        margin: 0 0 0 30px;
+        padding: 0 8px;
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
+        color: #f1f2f3;
+        font-size: 1em;
+      }
+      .navbar .search:focus {
+        outline: none;
+      }
+      .navbar .search::-webkit-input-placeholder {
+        color: #89808a;
+      }
+    </style>
+
+    <section class="navbar">
+      <input id="search" name="search" class="search" type="text" tabindex="0" placeholder="search">
+    </section>
+    <section class="albums-grid"> </section>
+
+    <script>
+// https://gist.github.com/cronokun/7e72382f3a1da7ae3b8ed2225342ccae
+const endpoint = "https://gist.githubusercontent.com/cronokun/7e72382f3a1da7ae3b8ed2225342ccae/raw/d5092c1de5f6fcd31a91b3b748cdc5e5b0b2db6a/data.json";
+const grid = document.querySelector('.albums-grid');
+const searchInput = document.querySelector('#search');
+const library = [];
+
+function renderAlbumsGrid(albums) {
+  const html = albums.map(renderAlbum).join('');
+  grid.innerHTML = html;
+}
+
+function renderAlbum(album) {
+  return `
+          <div class="album">
+            <img src="images/${album.cover}">
+            <h2>${album.artist}</h2>
+            <h3>${album.title}</h3>
+          </div>
+        `;
+}
+
+function filterAlbums(event) {
+  if (event.keyCode === 27) {
+    event.target.value = "";
+  }
+
+  const query = event.target.value;
+  const filteredAlbums = library.filter(album => {
+    const regex = new RegExp(query, 'gi');
+    return album.artist.match(regex) || album.title.match(regex);
+  })
+  renderAlbumsGrid(filteredAlbums);
+}
+
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => {
+    library.push(...data.albums);
+    renderAlbumsGrid(library);
+  });
+
+searchInput.addEventListener("keyup", filterAlbums);
+      
+    </script>
+  </body>
+</html>
