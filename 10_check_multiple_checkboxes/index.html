@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Day 10: Hold Shift to Check Multiple Checkboxes</title>
+  </head>
+  <body>
+    <ul id="list">
+      <li>
+        <input type="checkbox">
+        <label>Α α – alpha</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Β β – beta</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Γ γ – gamma</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Δ δ – delta</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Ε ε – epsilon</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Ζ ζ – zeta</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Η η – eta</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Θ θ – theta</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Ι ι – iota</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Κ κ – kappa</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Λ λ – lambda</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Μ μ – mu</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Ν ν – nu</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Ξ ξ – xi</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Ο ο – omicron</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Π π – pi</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Ρ ρ – rho</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Σ σ – sigma</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Τ τ – tau</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Υ υ – upsilon</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Φ φ – phi</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Χ χ – chi</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Ψ ψ – psi</label>
+      </li>
+      <li>
+        <input type="checkbox">
+        <label>Ω ω – omega</label>
+      </li>
+    </ul>
+
+    <script>
+      const checkboxes = new Array(...document.querySelectorAll("input[type=checkbox]"));
+      const list = document.querySelector("#list");
+      let selectionStartIndex, selectionEndIndex;
+
+      function handleInputChange(event) {
+        if (event.shiftKey) {
+          selectionEndIndex = checkboxes.findIndex(el => el === event.target);
+
+          if (selectionStartIndex > selectionEndIndex) {
+            [selectionStartIndex, selectionEndIndex] = [selectionEndIndex, selectionStartIndex];
+          }
+          checkboxes
+            .splice(selectionStartIndex, selectionEndIndex - selectionStartIndex)
+            .forEach(el => el.checked = true);
+        } else {
+          selectionStartIndex = checkboxes.findIndex(el => el === event.target);
+        }
+      }
+
+      list.addEventListener("click", handleInputChange);
+    </script>
+  </body>
+</html>
