@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KONAMI Code</title>
+  </head>
+  <body>
+    <script>
+      const secret = 'iddqd';
+      const pressed = [];
+
+      function registerKey(e) {
+        pressed.push(e.key);
+        pressed.splice(0, pressed.length - secret.length);
+
+        if (pressed.join('') === secret) {
+          alert("All your base are belong to us!");
+        }
+      }
+
+      document.addEventListener('keyup', registerKey);
+    </script>
+  </body>
+</html>
